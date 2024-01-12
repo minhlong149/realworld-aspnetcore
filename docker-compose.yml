@@ -1,0 +1,23 @@
+﻿services:
+  conduit-api:
+    container_name: conduit-api
+    image: conduit-server
+    build:
+      context: .
+      dockerfile: src/Web/Dockerfile
+    environment:
+      - ASPNETCORE_ConnectionStrings__DefaultConnection=Server=conduit-db,1433;User Id=sa;Password=C0ndu11@R34lW0r1d;TrustServerCertificate=True;
+    ports:
+      - "5000:8080"
+    depends_on:
+      - conduit-db
+
+  conduit-db:
+    container_name: conduit-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=C0ndu11@R34lW0r1d
+    restart: always
