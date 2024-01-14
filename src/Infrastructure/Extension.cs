@@ -1,4 +1,6 @@
+using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +20,8 @@ public static class Extension
 
     private static IServiceCollection AddPersistence(this IServiceCollection services, string? connectionString)
     {
+        services.AddScoped<IUserRepository, UserRepository>();
+
         services.AddDbContext<ConduitContext>(options => options.UseSqlServer(connectionString));
 
         using var scope = services.BuildServiceProvider().CreateScope();
