@@ -30,6 +30,7 @@ public class ExceptionHandler : IExceptionHandler
     private readonly Dictionary<Type, int> _exceptionStatusCodes = new()
     {
         { typeof(InvalidArgumentException), StatusCodes.Status400BadRequest },
+        { typeof(InvalidCredentialsException), StatusCodes.Status401Unauthorized },
         { typeof(NotFoundException), StatusCodes.Status404NotFound },
     };
 }
