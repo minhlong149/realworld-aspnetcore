@@ -7,6 +7,8 @@
       dockerfile: src/Web/Dockerfile
     environment:
       - ASPNETCORE_ConnectionStrings__DefaultConnection=Server=conduit-db,1433;User Id=sa;Password=C0ndu11@R34lW0r1d;TrustServerCertificate=True;
+      - ASPNETCORE_Authentication__SecretKey=[HFvV=bm&jzagqnDvS)Du(bN6M(U@S$mfk@9Dshvncntxt]]qa>jqVYdc3t2EGBB
+      - ASPNETCORE_Authentication__ExpiryInHours=1
     ports:
       - "5000:8080"
     depends_on:

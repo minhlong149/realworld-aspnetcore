@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class Extension
     )
     {
         services.AddPersistence(configuration.GetConnectionString("DefaultConnection"));
+        services.AddAuthentication(configuration);
 
         return services;
     }
@@ -27,6 +29,14 @@ public static class Extension
         using var scope = services.BuildServiceProvider().CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ConduitContext>();
         context.Database.Migrate();
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Key));
+        services.AddSingleton<ITokenClaimsService, TokenClaimService>();
 
         return services;
     }
