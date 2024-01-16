@@ -3,6 +3,7 @@ using Infrastructure.Cryptography;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -37,6 +38,10 @@ public static class Extension
     private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Key));
+        services.ConfigureOptions<JwtConfiguration>()
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
+        
         services.AddSingleton<ITokenClaimsService, TokenClaimService>();
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
