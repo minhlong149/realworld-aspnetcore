@@ -1,4 +1,5 @@
 using Core.Interfaces;
+using Infrastructure.Cryptography;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Repositories;
@@ -37,6 +38,7 @@ public static class Extension
     {
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Key));
         services.AddSingleton<ITokenClaimsService, TokenClaimService>();
+        services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
         return services;
     }
