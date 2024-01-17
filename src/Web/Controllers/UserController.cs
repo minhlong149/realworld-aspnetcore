@@ -1,5 +1,7 @@
 using Application.DTOs;
 using Application.Features.Users;
+using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
@@ -12,6 +14,17 @@ public class UserController(ISender sender) : ControllerBase
     public async Task<ActionResult<UserDto>> Authentication(Authentication command)
     {
         var user = await sender.Send(command);
+        return user;
+    }
+
+    [HttpPut]
+    [Authorize]
+    public async Task<ActionResult<UserDto>> UpdateUser(
+        [FromBody] UpdateUser command,
+        [FromServices] IUser currentUser
+    )
+    {
+        var user = await sender.Send(command with { Id = currentUser.Id });
         return user;
     }
 }
