@@ -16,6 +16,13 @@ public class UserController(ISender sender) : ControllerBase
         var user = await sender.Send(command);
         return user;
     }
+    
+    [HttpPost]
+    public async Task<ActionResult<UserDto>> Register(Registration command)
+    {
+        var user = await sender.Send(command);
+        return user;
+    }
 
     [HttpPut]
     [Authorize]
