@@ -1,6 +1,6 @@
 # ![RealWorld Example App](logo.png)
 
-> ### ASP.NET Core codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
+> ## ASP.NET Core codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API
 
 This codebase was created to demonstrate a fully fledged fullstack application built with ASP.NET Core including CRUD
 operations, authentication, routing, pagination, and more.
@@ -56,14 +56,12 @@ project. These classes should implement interfaces defined in the Core project.
 The entry point of the application is the ASP.NET Core web project. The `Program.cs` file is responsible for configuring
 the application and wiring up implementation types to interfaces.
 
-> In order to wire up dependency injection during app startup, the `Program.cs` file may need to reference the
-> Infrastructure project.
+> In order to wire up dependency injection during app startup, the `Program.cs` file may need to reference other projects.
 
 ## Getting started
 
 The solution-level [`docker-compose.yml`](./docker-compose.yml) file is configured to run the application in a
-containerized environment. To run
-the application, execute the following command from the root of the repository:
+containerized environment. To run the application, execute the following command from the root of the repository:
 
 ```bash
 docker-compose up
