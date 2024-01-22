@@ -25,6 +25,7 @@ public static class Extension
     private static IServiceCollection AddPersistence(this IServiceCollection services, string? connectionString)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IArticleRepository, ArticleRepository>();
 
         services.AddDbContext<ConduitContext>(options => options.UseSqlServer(connectionString));
 
