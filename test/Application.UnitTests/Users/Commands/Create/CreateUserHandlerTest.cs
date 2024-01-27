@@ -1,5 +1,5 @@
 using Application.DTOs;
-using Application.Features.Users;
+using Application.Users.Commands.Create;
 using AutoMapper;
 using Core.Constants;
 using Core.Entities;
@@ -7,11 +7,11 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 
-namespace Application.UnitTests.Features.Users;
+namespace Application.UnitTests.Users.Commands.Create;
 
-public class RegistrationHandlerTest
+public class CreateUserHandlerTest
 {
-    private readonly Mock<ITokenClaimsService> _tokenClaimsServiceMock = new();
+private readonly Mock<ITokenClaimsService> _tokenClaimsServiceMock = new();
     private readonly Mock<IPasswordHasher> _passwordHasherMock = new();
     private readonly Mock<IUserRepository> _userRepositoryMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
@@ -29,14 +29,14 @@ public class RegistrationHandlerTest
             .Setup(userRepository => userRepository.GetByEmailAsync(userEntity.Email))
             .ReturnsAsync((UserEntity?)null);
 
-        var handler = new RegistrationHandler(
+        var handler = new CreateUserHandler(
             _tokenClaimsServiceMock.Object,
             _passwordHasherMock.Object,
             _userRepositoryMock.Object,
             _mapperMock.Object
         );
 
-        var command = new Registration()
+        var command = new CreateUserRequest()
         {
             Username = userEntity.Username, Email = userEntity.Email, Password = userEntity.Password
         };
@@ -66,14 +66,14 @@ public class RegistrationHandlerTest
             .Setup(userRepository => userRepository.GetByEmailAsync(userEntity.Email))
             .ReturnsAsync(userEntity);
 
-        var handler = new RegistrationHandler(
+        var handler = new CreateUserHandler(
             _tokenClaimsServiceMock.Object,
             _passwordHasherMock.Object,
             _userRepositoryMock.Object,
             _mapperMock.Object
         );
         
-        var command = new Registration()
+        var command = new CreateUserRequest()
         {
             Username = userEntity.Username, Email = userEntity.Email, Password = userEntity.Password
         };
@@ -117,14 +117,14 @@ public class RegistrationHandlerTest
             .Setup(tokenClaimsService => tokenClaimsService.GetToken(It.IsAny<UserEntity>()))
             .Returns(userJwt);
 
-        var handler = new RegistrationHandler(
+        var handler = new CreateUserHandler(
             _tokenClaimsServiceMock.Object,
             _passwordHasherMock.Object,
             _userRepositoryMock.Object,
             _mapperMock.Object
         );
         
-        var command = new Registration() { Email = newUser.Email, Username = newUser.Username, Password = "password" };
+        var command = new CreateUserRequest() { Email = newUser.Email, Username = newUser.Username, Password = "password" };
 
         var createdUser = await handler.Handle(command, CancellationToken.None);
 

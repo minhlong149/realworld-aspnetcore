@@ -1,5 +1,6 @@
 using Application.DTOs;
 using Application.Features.Users;
+using Application.Users.Commands.Create;
 using Core.Services;
 
 namespace Web.Controllers;
@@ -16,9 +17,9 @@ public class UserController(ISender sender) : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<UserDto>> Register(Registration command)
+    public async Task<ActionResult<UserDto>> Registration(CreateUserRequest request)
     {
-        var user = await sender.Send(command);
+        var user = await sender.Send(request);
         return user;
     }
 
