@@ -1,6 +1,6 @@
 using Core.Entities;
 
-namespace Core.Interfaces;
+namespace Core.Services;
 
 public interface ITokenClaimsService
 {

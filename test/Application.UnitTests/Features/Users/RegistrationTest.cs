@@ -4,7 +4,8 @@ using AutoMapper;
 using Core.Constants;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Interfaces;
+using Core.Repositories;
+using Core.Services;
 
 namespace Application.UnitTests.Features.Users;
 

@@ -1,5 +1,5 @@
 using Application;
-using Core.Interfaces;
+using Core.Services;
 using Infrastructure;
 using Microsoft.OpenApi.Models;
 using Web.Infrastructure;

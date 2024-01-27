@@ -1,5 +1,5 @@
 using Core.Constants;
-using Core.Interfaces;
+using Core.Services;
 using Slugify;
 
 namespace Infrastructure.Services;

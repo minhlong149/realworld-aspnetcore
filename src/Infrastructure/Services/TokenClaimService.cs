@@ -2,11 +2,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Core.Entities;
-using Core.Interfaces;
+using Core.Services;
+using Infrastructure.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Infrastructure.Identity;
+namespace Infrastructure.Services;
 
 public class TokenClaimService(IOptions<JwtSettings> options) : ITokenClaimsService
 {

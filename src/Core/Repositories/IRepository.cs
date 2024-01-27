@@ -1,6 +1,6 @@
 using Core.Entities;
 
-namespace Core.Interfaces;
+namespace Core.Repositories;
 
 public interface IRepository<T> where T : BaseEntity
 {
