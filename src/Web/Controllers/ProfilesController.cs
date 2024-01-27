@@ -1,6 +1,5 @@
 using Application.DTOs;
 using Application.Features.Users;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
 
