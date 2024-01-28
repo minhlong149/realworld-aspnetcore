@@ -1,6 +1,7 @@
 using Application.DTOs;
 using Application.Features.Users;
 using Application.Users.Commands.Create;
+using Application.Users.Queries.GetUser;
 using Core.Services;
 
 namespace Web.Controllers;
@@ -10,9 +11,9 @@ namespace Web.Controllers;
 public class UserController(ISender sender) : ControllerBase
 {
     [HttpPost("login")]
-    public async Task<ActionResult<UserDto>> Authentication(Authentication command)
+    public async Task<ActionResult<UserDto>> Authentication(GetUserRequest request)
     {
-        var user = await sender.Send(command);
+        var user = await sender.Send(request);
         return user;
     }
     
