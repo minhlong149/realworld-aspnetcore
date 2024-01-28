@@ -1,5 +1,5 @@
 using Application.DTOs;
-using Application.Features.Users;
+using Application.Users.Commands.Update;
 using AutoMapper;
 using Core.Constants;
 using Core.Entities;
@@ -7,11 +7,11 @@ using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 
-namespace Application.UnitTests.Features.Users;
+namespace Application.UnitTests.Users.Commands.Update;
 
 public class UpdateUserHandlerTest
 {
-    private readonly Mock<ITokenClaimsService> _tokenClaimsServiceMock = new();
+private readonly Mock<ITokenClaimsService> _tokenClaimsServiceMock = new();
     private readonly Mock<IPasswordHasher> _passwordHasherMock = new();
     private readonly Mock<IUserRepository> _userRepositoryMock = new();
     private readonly Mock<IMapper> _mapperMock = new();
@@ -30,7 +30,7 @@ public class UpdateUserHandlerTest
             _mapperMock.Object
         );
 
-        var request = new UpdateUser(Guid.NewGuid());
+        var request = new UpdateUserRequest(Guid.NewGuid());
 
         Func<Task> updateUser = async () => await updateUserHandler.Handle(request, CancellationToken.None);
 
@@ -52,7 +52,7 @@ public class UpdateUserHandlerTest
             Id = Guid.NewGuid(), Email = "root@mail.com", Username = "root", Password = "password"
         };
 
-        var request = new UpdateUser(userToUpdate.Id)
+        var request = new UpdateUserRequest(userToUpdate.Id)
         {
             Email = "admin@mail.com",
             Username = "admin",

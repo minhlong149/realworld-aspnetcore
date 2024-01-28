@@ -1,5 +1,5 @@
 using Application.DTOs;
-using Application.Features.Users;
+using Application.Users.Queries.GetProfile;
 
 namespace Web.Controllers;
 
@@ -10,7 +10,7 @@ public class ProfilesController(ISender sender) : ControllerBase
     [HttpGet("{username}")]
     public async Task<ActionResult<ProfileDto>> GetProfile(string username)
     {
-        var profile = await sender.Send(new GetProfile(username));
+        var profile = await sender.Send(new GetProfileRequest(username));
         return profile;
     }
 }

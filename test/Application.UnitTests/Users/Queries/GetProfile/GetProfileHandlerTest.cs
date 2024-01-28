@@ -1,12 +1,12 @@
 using Application.DTOs;
-using Application.Features.Users;
+using Application.Users.Queries.GetProfile;
 using AutoMapper;
 using Core.Constants;
 using Core.Entities;
 using Core.Exceptions;
 using Core.Repositories;
 
-namespace Application.UnitTests.Features.Users;
+namespace Application.UnitTests.Users.Queries.GetProfile;
 
 public class GetProfileHandleTest
 {
@@ -32,10 +32,9 @@ public class GetProfileHandleTest
             .Returns(profileDto);
 
         var handler = new GetProfileHandler(_userRepositoryMock.Object, _mapperMock.Object);
-        var query = new GetProfile(userEntity.Username);
+        var request = new GetProfileRequest(userEntity.Username);
 
-        var profile = await handler.Handle(query, CancellationToken.None);
-
+        var profile = await handler.Handle(request, CancellationToken.None);
         profile.Should().BeEquivalentTo(profileDto);
     }
 
@@ -47,9 +46,9 @@ public class GetProfileHandleTest
             .ReturnsAsync((UserEntity?)null);
 
         var handler = new GetProfileHandler(_userRepositoryMock.Object, _mapperMock.Object);
-        var query = new GetProfile("notExistUsername");
+        var request = new GetProfileRequest("notExistUsername");
 
-        Func<Task> getProfile = async () => await handler.Handle(query, CancellationToken.None);
+        Func<Task> getProfile = async () => await handler.Handle(request, CancellationToken.None);
 
         await getProfile.Should()
             .ThrowAsync<NotFoundException>()
